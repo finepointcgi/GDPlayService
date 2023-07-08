@@ -145,13 +145,16 @@ class GDPlayCoreLibrary constructor(godot: Godot): GodotPlugin(godot) {
 
     // Displays the snackbar notification and call to action.
     private fun popupSnackbarForCompleteUpdate() {
-        Snackbar.make(
-            super.getGodot().mView,
-            "An update has just been downloaded.",
-            Snackbar.LENGTH_INDEFINITE
-        ).apply {
-            setAction("RESTART") { appUpdateManager.completeUpdate() }
-            show()
+        val view = godot.view;
+        if(view != null) {
+            Snackbar.make(
+                view,
+                "An update has just been downloaded.",
+                Snackbar.LENGTH_INDEFINITE
+            ).apply {
+                setAction("RESTART") { appUpdateManager.completeUpdate() }
+                show()
+            }
         }
     }
 
